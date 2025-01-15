@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+{% block content %}
+  {% if not projects %}
+    <p>No projects found.</p>
+  {% else %}
+    <div class="row">
+      {% for project in projects %}
+        <div class="col-md-6">
+          <div class="card-wrapper" onclick="flipCard(this)">
+            <div class="card">
+
+              <div class="front">
+                <img src="{{ url_for('static', filename='images/' + project['Image_name']) }}" class="card-img-top" alt="{{ project['Title'] }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ project['Title'] }}</h5>
+                </div>
+              </div>
+
+              <div class="back">
+                <div class="card-body">
+                  <p class="card-text"><strong>Description:</strong> {{ project['Desc'] }}</p>
+                  <p class="card-text"><strong>Tools:</strong> {{ project['Tools'] }}</p>
+                  <p class="card-text"><strong>Summary:</strong> {{ project['Summary'] }}</p>
+                  {% if project['Youtube_URL'] %}
+                    <p class="card-text"><strong>Youtube:</strong> <a href="{{ project['Youtube_URL'] }}" target="_blank">Watch Video</a></p>
+                  {% endif %}  
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
